@@ -27,27 +27,11 @@ export async function POST(req: NextRequest) {
     // 1. Generate PDF Buffer
     const pdfComponent = React.createElement(ReportPDF, { data }) as any;
     const pdfBuffer = await renderToBuffer(pdfComponent);
+    
+    // Convert buffer to base64 to send to frontend
+    const pdfBase64 = pdfBuffer.toString("base64");
 
-    // 2. Send Emails via Resend
-    const { data: emailData, error } = await resend.emails.send({
-      from: "Automação <onboarding@resend.dev>",
-      to: [data.email, "lglintz@gmail.com"],
-      subject: `Relatório de Solicitação - ${data.empresa}`,
-      text: `Olá ${data.nomeRespondente},\n\nSegue em anexo o relatório técnico gerado para a sua solicitação referente à empresa ${data.empresa}.\n\nAtenciosamente,\nSistema de Automação`,
-      attachments: [
-        {
-          filename: `Relatorio_${data.empresa}.pdf`,
-          content: pdfBuffer,
-        },
-      ],
-    });
-
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: (error as any).message || "Erro no serviço de e-mail" }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, emailData });
+    return NextResponse.json({ success: true, pdfBase64 });
   } catch (err) {
     console.error("Submission error:", err);
     return NextResponse.json({ error: "Erro ao processar solicitação" }, { status: 500 });

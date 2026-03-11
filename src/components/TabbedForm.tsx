@@ -51,10 +51,31 @@ function TabbedFormContent() {
       });
 
       if (response.ok) {
-        alert("Sucesso! O PDF foi gerado e enviado por e-mail.");
+        const result = await response.json();
+        
+        // Trigger PDF Download
+        if (result.pdfBase64) {
+          const byteCharacters = atob(result.pdfBase64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "application/pdf" });
+          
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `Relatorio_${data.empresa.replace(/[^a-z0-9]/gi, '_')}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+
+        alert("Sucesso! Os dados foram salvos e o PDF foi baixado no seu dispositivo.");
       } else {
         const err = await response.json();
-        alert(`Erro ao enviar: ${err.error || "Tente novamente mais tarde."}`);
+        alert(`Erro ao salvar: ${err.error || "Tente novamente mais tarde."}`);
       }
     } catch (error) {
       console.error("Submit error:", error);
@@ -138,8 +159,8 @@ function TabbedFormContent() {
           <Button type="button" variant="outline" onClick={() => methods.reset()}>
             Limpar
           </Button>
-          <Button type="submit">
-            Gerar PDF & Enviar Email
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Processando..." : "Salvar e Baixar PDF"}
           </Button>
         </div>
       </form>
