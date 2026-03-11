@@ -31,9 +31,7 @@ export async function POST(req: NextRequest) {
     // 2. Send Emails via Resend
     const { data: emailData, error } = await resend.emails.send({
       from: "Automação <onboarding@resend.dev>",
-      // NOTE: Resend free tier only allows sending to the verified email. 
-      // To send to the client (data.email), a custom domain needs to be verified in Resend.
-      to: ["saulozabot@gmail.com"],
+      to: [data.email, "lglintz@gmail.com"],
       subject: `Relatório de Solicitação - ${data.empresa}`,
       text: `Olá ${data.nomeRespondente},\n\nSegue em anexo o relatório técnico gerado para a sua solicitação referente à empresa ${data.empresa}.\n\nAtenciosamente,\nSistema de Automação`,
       attachments: [
