@@ -159,8 +159,8 @@ function TabbedFormContent() {
           <Button type="button" variant="outline" onClick={() => methods.reset()}>
             Limpar
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Processando..." : "Salvar e Baixar PDF"}
+          <Button type="submit" disabled={methods.formState.isSubmitting}>
+            {methods.formState.isSubmitting ? "Processando..." : "Salvar e Baixar PDF"}
           </Button>
         </div>
       </form>
