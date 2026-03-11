@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 1. Generate PDF Buffer
-    const pdfComponent = React.createElement(ReportPDF, { data });
+    const pdfComponent = React.createElement(ReportPDF, { data }) as any;
     const pdfBuffer = await renderToBuffer(pdfComponent);
 
     // 2. Send Emails via Resend
