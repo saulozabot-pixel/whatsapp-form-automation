@@ -1,0 +1,5 @@
+node_modules
+.next
+.env*
+ffmpeg.zip
+ffmpeg_temp/
