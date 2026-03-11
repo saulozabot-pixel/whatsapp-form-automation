@@ -126,7 +126,7 @@ export default function AdminDashboard() {
                                 return (
                                   <div key={key} className="flex flex-col py-1 border-b border-slate-100">
                                     <span className="text-slate-500 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
-                                    <span className="font-medium text-slate-900">
+                                    <span className="font-medium text-slate-900 break-words break-all">
                                       {Array.isArray(value) ? value.join(", ") : String(value)}
                                     </span>
                                   </div>
