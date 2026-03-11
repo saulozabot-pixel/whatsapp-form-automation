@@ -20,7 +20,7 @@ function TabbedFormContent() {
   const project = searchParams.get("project");
 
   const methods = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       nomeRespondente: "",
       empresa: "",
