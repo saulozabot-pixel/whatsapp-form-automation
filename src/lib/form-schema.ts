@@ -35,6 +35,7 @@ export const formSchema = z.object({
 
   desafiosSetor: z.string().optional(),
   oportunidadesSetor: z.string().optional(),
+  anexosUrls: z.array(z.string()).default([]),
 });
 
 export type FormValues = z.infer<typeof formSchema>;

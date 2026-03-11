@@ -156,6 +156,18 @@ export const ReportPDF = ({ data }: { data: FormValues }) => (
           </View>
         </View>
       )}
+      {/* Attachments Section [NEW] */}
+      {data.anexosUrls && data.anexosUrls.length > 0 && (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Anexos e Documentos</Text>
+          {data.anexosUrls.map((url, idx) => (
+            <View key={idx} style={{ marginBottom: 4 }}>
+              <Text style={styles.label}>Anexo {idx + 1}:</Text>
+              <Text style={{ ...styles.value, color: '#2563eb' }}>{url}</Text>
+            </View>
+          ))}
+        </View>
+      )}
 
       <Text style={styles.footer}>
         Documento confidencial destinado à análise de crédito e viabilidade técnica.
