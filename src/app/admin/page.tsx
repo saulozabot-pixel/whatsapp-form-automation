@@ -51,10 +51,8 @@ export default function AdminDashboard() {
                     <Button variant="outline" size="sm" onClick={() => copyToClipboard(link.path)}>
                       <Copy className="h-4 w-4 mr-2" /> Copiar Link
                     </Button>
-                    <Button variant="ghost" size="sm" asChild>
-                      <a href={link.path} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2" /> Abrir
-                      </a>
+                    <Button variant="ghost" size="sm" onClick={() => window.open(link.path, "_blank")}>
+                      <ExternalLink className="h-4 w-4 mr-2" /> Abrir
                     </Button>
                   </CardContent>
                 </Card>
